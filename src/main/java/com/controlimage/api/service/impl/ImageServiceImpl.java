@@ -47,7 +47,6 @@ public class ImageServiceImpl implements IImageService {
 	 */
 	@Override
 	@Transactional
-	@CacheEvict(value = "images", allEntries = true)
 	public ImageDTO add(MultipartFile file, Boolean active) {
 		try {
 

@@ -71,13 +71,11 @@ public class SecurityConfig {
                     "/swagger-ui.html",
                     "/swagger-ui/**",
                     "/swagger-resources/**",
-                    "/webjars/**",
-                    "/public/**",
-                    "/images/**"
+                    "/webjars/**"
                 ).permitAll()
 
                 // 👉 LIBERA SOMENTE GET / e GET /findAll
-                .requestMatchers(HttpMethod.GET, "/", "/*").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/image", "/*").permitAll()
 
                 .anyRequest().authenticated()
             )
