@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   image-api:
     build: .
@@ -7,15 +5,16 @@ services:
     ports:
       - "8082:8082"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://72.61.38.221:5432/animal_adoption
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/animal_adoption
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: 123ateo9
-      SPRING_DATA_REDIS_HOST: redis.barbershop-app.shop
+      SPRING_DATA_REDIS_HOST: redis
       SPRING_DATA_REDIS_PORT: 6379
       SPRING_DATA_REDIS_PASSWORD: 123ateo9
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://keycloak:8080/realms/ANIMAL_ADOPTION
     networks:
-      - bridge
+      - controlimage_network
 
 networks:
-  bridge:
+  controlimage_network:
     external: true

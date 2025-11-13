@@ -7,7 +7,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: https://keycloak.barbershop-app.shop:8443/realms/ANIMAL_ADOPTION
+          issuer-uri: https://keycloak:8443/realms/ANIMAL_ADOPTION
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://postgres:5432/animal_adoption}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
