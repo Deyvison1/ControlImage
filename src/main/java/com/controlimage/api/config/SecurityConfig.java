@@ -72,8 +72,8 @@ public class SecurityConfig {
                     "/swagger-ui/**",
                     "/swagger-resources/**",
                     "/webjars/**",
-                    "**/image/**",
-                    "**/images/**"
+                    "/image/**",
+                    "/images/**"
                 ).permitAll()
                 .anyRequest().authenticated()
             )
