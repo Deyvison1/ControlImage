@@ -32,7 +32,7 @@ spring:
         default_schema: ${SCHEMA_NAME:control_images}
   data:
     redis:
-      host: redis.barbershop-app.shop
+      host: redis
       port: 6379
       password: "123ateo9"   # deixe vazio se não configurou senha
       timeout: 2000ms
