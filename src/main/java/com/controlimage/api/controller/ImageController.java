@@ -55,7 +55,6 @@ public class ImageController {
 	 * Retorna a imagem binária armazenada no servidor.
 	 */
 	@GetMapping("/{id}")
-	@PreAuthorize(ImageConstants.ADMIN_AUTHORITY)
 	@Operation(summary = "Faz download de uma imagem", description = "Recupera e retorna o conteúdo binário da imagem pelo seu ID.", responses = {
 			@ApiResponse(responseCode = "201", description = ImageConstants.DOWNLOAD, content = @Content(mediaType = "application/json", schema = @Schema(implementation = ImageDTO.class))),
 			@ApiResponse(responseCode = "404", description = "Imagem não encontrada") })
