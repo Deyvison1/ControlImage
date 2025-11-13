@@ -1,14 +1,12 @@
-# Imagem base (Java 21)
-FROM eclipse-temurin:21-jdk
-
-# Diretório de trabalho dentro do container
+# Etapa 1 - Build
+FROM maven:3.9.6-eclipse-temurin-21 AS builder
 WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
 
-# Copia o JAR da aplicação para dentro do container
-COPY target/image-api.jar app.jar
-
-# Expõe a porta 8080
+# Etapa 2 - Runtime
+FROM eclipse-temurin:21-jdk
+WORKDIR /app
+COPY --from=builder /app/target/image-api.jar app.jar
 EXPOSE 8082
-
-# Comando para iniciar o app
 ENTRYPOINT ["java", "-jar", "app.jar"]
