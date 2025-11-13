@@ -12,7 +12,7 @@ services:
       SPRING_DATA_REDIS_PORT: 6379
       SPRING_PROFILES_ACTIVE: docker
       SPRING_DATA_REDIS_PASSWORD: 123ateo9
-      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://keycloak:8080/realms/ANIMAL_ADOPTION
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: https://keycloak.barbershop-app.shop:8443/realms/ANIMAL_ADOPTION
     networks:
       - controlimage_network
 
