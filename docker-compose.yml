@@ -1,3 +1,5 @@
+version: "3.9"
+
 services:
   image-api:
     build: .
@@ -9,8 +11,8 @@ services:
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: 123ateo9
     networks:
-      - bridge
+      - controlimage_network
 
 networks:
-  bridge:
+  controlimage_network:
     external: true
