@@ -1,26 +1,21 @@
-services:
-  redis:
-    image: redis
-    container_name: redis
-    ports:
-      - "6379:6379"
-    networks:
-      - app-net
+version: "3.9"
 
+services:
   image-api:
     build: .
     container_name: image-api
     ports:
       - "8082:8082"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/animal_adoption
+      SPRING_DATASOURCE_URL: jdbc:postgresql://72.61.38.221:5432/animal_adoption
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: 123ateo9
-    depends_on:
-      - redis
+      SPRING_DATA_REDIS_HOST: redis.barbershop-app.shop
+      SPRING_DATA_REDIS_PORT: 6379
+      SPRING_DATA_REDIS_PASSWORD: 123ateo9
     networks:
-      - app-net
+      - bridge
 
 networks:
-  app-net:
-    driver: bridge
+  bridge:
+    external: true
