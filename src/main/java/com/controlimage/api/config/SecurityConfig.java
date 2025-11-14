@@ -72,9 +72,9 @@ public class SecurityConfig {
                     "/swagger-ui/**",
                     "/swagger-resources/**",
                     "/webjars/**",
-                    "/image/**",
                     "/images/**"
                 ).permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/image/{id}").permitAll()
                 .anyRequest().authenticated()
             )
             .oauth2ResourceServer(oauth -> oauth
