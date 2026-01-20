@@ -1,6 +1,5 @@
 package com.controlimage.api.config;
 
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,66 +21,54 @@ import java.util.List;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    @Value("${keycloak-config.client-public-key}")
-    private final String clientId = "myclient";
+	@Value("${keycloak-config.client-public-key}")
+	private final String clientId = "myclient";
 
-    @Bean
-    KeycloakJwtAuthenticationConverter keycloakJwtAuthenticationConverter() {
-        return new KeycloakJwtAuthenticationConverter(clientId);
-    }
+	@Bean
+	KeycloakJwtAuthenticationConverter keycloakJwtAuthenticationConverter() {
+		return new KeycloakJwtAuthenticationConverter(clientId);
+	}
 
-    @Bean
-    JwtAuthenticationConverter jwtAuthenticationConverter(KeycloakJwtAuthenticationConverter keycloakConverter) {
-        JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
-        converter.setJwtGrantedAuthoritiesConverter(keycloakConverter::convert);
-        return converter;
-    }
+	@Bean
+	JwtAuthenticationConverter jwtAuthenticationConverter(KeycloakJwtAuthenticationConverter keycloakConverter) {
+		JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
+		converter.setJwtGrantedAuthoritiesConverter(keycloakConverter::convert);
+		return converter;
+	}
 
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        return getCorsConfigurationSource();
-    }
+	@Bean
+	CorsConfigurationSource corsConfigurationSource() {
+		return getCorsConfigurationSource();
+	}
 
-    static CorsConfigurationSource getCorsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:4200"));
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
-        configuration.setAllowCredentials(true);
+	static CorsConfigurationSource getCorsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedOrigins(List.of("http://localhost:4200", "https://animal-adoption.com.br"));
+		configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+		configuration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
+		configuration.setAllowCredentials(true);
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
 
-        return source;
-    }
+		return source;
+	}
 
-    @Bean
-    SecurityFilterChain securityFilterChain(
-            HttpSecurity http,
-            CorsConfigurationSource corsConfigurationSource,
-            JwtAuthenticationConverter jwtAuthenticationConverter
-    ) throws Exception {
+	@Bean
+	SecurityFilterChain securityFilterChain(HttpSecurity http, CorsConfigurationSource corsConfigurationSource,
+			JwtAuthenticationConverter jwtAuthenticationConverter) throws Exception {
 
-        http
-            .csrf(AbstractHttpConfigurer::disable)
-            .cors(cors -> cors.configurationSource(corsConfigurationSource))
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers(
-                    "/v3/api-docs/**",
-                    "/swagger-ui.html",
-                    "/swagger-ui/**",
-                    "/swagger-resources/**",
-                    "/webjars/**",
-                    "/images/**"
-                ).permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/image/{id}").permitAll()
-                .anyRequest().authenticated()
-            )
-            .oauth2ResourceServer(oauth -> oauth
-                .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter))
-            );
+		http.csrf(AbstractHttpConfigurer::disable).cors(cors -> cors.configurationSource(corsConfigurationSource))
+				.authorizeHttpRequests(auth -> auth.requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**")
+						.permitAll()
+						.requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**",
+								"/swagger-resources/**", "/webjars/**", "/images/**")
+						.permitAll().requestMatchers(HttpMethod.GET, "/api/image/{id}").permitAll().anyRequest()
+						.authenticated())
+				.oauth2ResourceServer(
+						oauth -> oauth.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter)));
 
-        return http.build();
-    }
+		return http.build();
+	}
 
 }
