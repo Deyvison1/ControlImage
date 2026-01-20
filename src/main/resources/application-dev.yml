@@ -9,7 +9,7 @@ spring:
         jwt:
           issuer-uri: https://keycloak.animal-adoption.com.br:8443/realms/ANIMAL_ADOPTION
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://72.61.38.221:5432/animal_adoption}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5433/animal_adoption}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
     password: ${SPRING_DATASOURCE_PASSWORD:123ateo9}
     driver-class-name: org.postgresql.Driver

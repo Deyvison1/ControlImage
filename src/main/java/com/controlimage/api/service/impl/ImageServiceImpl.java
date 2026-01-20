@@ -120,7 +120,6 @@ public class ImageServiceImpl implements IImageService {
 	 */
 	@Override
 	@Transactional
-	@CacheEvict(value = "images", key = "#id")
 	public void remove(UUID id) {
 		Image entity = findById(id);
 
@@ -148,7 +147,6 @@ public class ImageServiceImpl implements IImageService {
 	 * @throws NotFoundException caso a imagem não seja encontrada.
 	 */
 	@Override
-	@CacheEvict(value = "haircuts", key = "#id")
 	public ImageDTO findByIdToDto(UUID id) {
 		return mapper.toDto(findById(id));
 	}
@@ -174,7 +172,6 @@ public class ImageServiceImpl implements IImageService {
 	 * @return entidade {@link Image}.
 	 * @throws NotFoundException caso a imagem não seja encontrada.
 	 */
-	@CacheEvict(value = "haircuts", key = "#id")
 	private Image findById(UUID id) {
 		return repository.findById(id).orElseThrow(() -> new NotFoundException(id.toString()));
 	}

@@ -7,7 +7,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: https://keycloak.barbershop-app.shop:8443/realms/ANIMAL_ADOPTION
+          issuer-uri: https://keycloak.animal-adoption.com.br:8443/realms/ANIMAL_ADOPTION
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://postgres:5432/animal_adoption}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
@@ -30,12 +30,6 @@ spring:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
         default_schema: ${SCHEMA_NAME:control_images}
-  data:
-    redis:
-      host: redis
-      port: 6379
-      password: "123ateo9"   # deixe vazio se não configurou senha
-      timeout: 2000ms
   sql:
     init:
       mode: always
