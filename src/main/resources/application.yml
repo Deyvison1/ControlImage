@@ -44,3 +44,4 @@ upload:
 keycloak-config:
   client-public-key: ANIMAL_ADOPTION_CLIENT
   internal-url: https://keycloak.animal-adoption.com.br:8443
+base-url: http://localhost:8082

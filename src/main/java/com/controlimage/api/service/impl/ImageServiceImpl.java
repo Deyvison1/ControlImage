@@ -9,6 +9,7 @@ import com.controlimage.api.service.IImageService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,6 +31,9 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class ImageServiceImpl implements IImageService {
+	
+    @Value("${base-url}")
+    private String baseUrl;
 
 	private static final String UPLOAD_DIR = System.getProperty("user.dir") + "/uploads";
 
@@ -82,7 +86,7 @@ public class ImageServiceImpl implements IImageService {
 			Files.copy(file.getInputStream(), filePath);
 
 			// 7) Cria entidade
-			String url = "/images/" + filename;
+			String url = baseUrl + "/images/" + filename;
 			Image entity = Image.builder().filename(filename).url(url).contentType(file.getContentType())
 					.size(file.getSize()).active(active).build();
 
