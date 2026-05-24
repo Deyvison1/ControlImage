@@ -13,7 +13,7 @@ public final class ImageConstants {
     // ==========================
     // 🧱 Entity / API
     // ==========================
-    public static final String SCHEMA = "control_images";
+    public static final String SCHEMA = "file";
     public static final String BASE_API = "/api";
     public static final String BASE_PATH = BASE_API + "/image";
 

@@ -1,10 +1,10 @@
--- control_images.image definição
+-- file.image definição
 
 -- Drop table
 
--- DROP TABLE control_images.image;
+-- DROP TABLE file.image;
 
-CREATE TABLE IF NOT EXISTS control_images.image (
+CREATE TABLE IF NOT EXISTS file.image (
 	active bool NOT NULL,
 	created_date timestamp(6) NULL,
 	last_modified_date timestamp(6) NULL,
@@ -20,5 +20,5 @@ CREATE TABLE IF NOT EXISTS control_images.image (
 
 -- Permissions
 
-ALTER TABLE control_images.image OWNER TO postgres;
-GRANT ALL ON TABLE control_images.image TO postgres;
+ALTER TABLE file.image OWNER TO postgres;
+GRANT ALL ON TABLE file.image TO postgres;

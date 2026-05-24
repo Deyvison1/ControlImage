@@ -21,7 +21,7 @@ import java.util.List;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-	@Value("${keycloak-config.client-public-key}")
+	@Value("${keycloak-config.client-id}")
 	private final String clientId = "myclient";
 
 	@Bean
