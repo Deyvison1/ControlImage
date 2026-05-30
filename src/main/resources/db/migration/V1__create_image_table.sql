@@ -1,24 +1,21 @@
--- file.image definição
-
--- Drop table
-
--- DROP TABLE file.image;
+-- file.image definition
 
 CREATE TABLE IF NOT EXISTS file.image (
-	active bool NOT NULL,
-	created_date timestamp(6) NULL,
-	last_modified_date timestamp(6) NULL,
-	"size" int8 NULL,
-	id uuid NOT NULL,
-	content_type varchar(255) NULL,
-	created_by varchar(255) NULL,
-	filename varchar(255) NULL,
-	last_modified_by varchar(255) NULL,
-	url varchar(255) NULL,
-	CONSTRAINT image_pkey PRIMARY KEY (id)
+    id uuid NOT NULL,
+    filename varchar(255),
+    bucket varchar(255) NOT NULL,
+    object_key varchar(512) NOT NULL,
+    content_type varchar(255),
+    size int8,
+    active boolean NOT NULL DEFAULT true,
+    creation_Date timestamp(6) NOT NULL,
+    update_date timestamp(6),
+    creation_user varchar(255) NOT NULL,
+    update_user varchar(255),
+
+    CONSTRAINT image_pkey PRIMARY KEY (id)
 );
 
 -- Permissions
-
 ALTER TABLE file.image OWNER TO postgres;
 GRANT ALL ON TABLE file.image TO postgres;

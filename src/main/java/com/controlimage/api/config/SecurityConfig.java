@@ -63,7 +63,7 @@ public class SecurityConfig {
 						.permitAll()
 						.requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**",
 								"/swagger-resources/**", "/webjars/**", "/images/**")
-						.permitAll().requestMatchers(HttpMethod.GET, "/api/image/{id}").permitAll().anyRequest()
+						.permitAll().requestMatchers(HttpMethod.GET, "/api/image/{id}/url").permitAll().requestMatchers(HttpMethod.GET, "/api/image/{id}").permitAll().anyRequest()
 						.authenticated())
 				.oauth2ResourceServer(
 						oauth -> oauth.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter)));

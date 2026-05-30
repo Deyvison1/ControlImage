@@ -4,20 +4,48 @@ services:
     container_name: image-api
     ports:
       - "8082:8082"
-    volumes:
-      - image_uploads:/app/uploads
+
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/animal_adoption
+
+      # =========================
+      # DATABASE (service externo)
+      # =========================
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/control_image
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: 123ateo9
-      SPRING_PROFILES_ACTIVE: docker
-      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: https://keycloak.animal-adoption.com.br:8443/realms/ANIMAL_ADOPTION
-    networks:
-      - controlimage_network
 
-volumes:
-  image_uploads:
+      # =========================
+      # PROFILE
+      # =========================
+      SPRING_PROFILES_ACTIVE: docker
+
+      # =========================
+      # KEYCLOAK (serviço externo)
+      # =========================
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://keycloak:8080/realms/MY_KEYCLOAK
+
+      # =========================
+      # SCHEMA
+      # =========================
+      SCHEMA_NAME: file
+
+      # =========================
+      # MINIO / S3 (serviço externo)
+      # =========================
+      STORAGE_S3_ENDPOINT: http://minio:9000
+      STORAGE_S3_ACCESS_KEY: minioadmin
+      STORAGE_S3_SECRET_KEY: minioadmin123
+      STORAGE_S3_BUCKET: images
+      STORAGE_S3_REGION: us-east-1
+
+      # =========================
+      # BASE URL da própria API
+      # =========================
+      BASE_URL: http://image-api:8082
+
+    networks:
+      - my-infra-docker
 
 networks:
-  controlimage_network:
+  my-infra-docker:
     external: true

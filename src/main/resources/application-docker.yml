@@ -3,46 +3,50 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
+
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: https://keycloak.animal-adoption.com.br:8443/realms/ANIMAL_ADOPTION
+          issuer-uri: http://keycloak:8080/realms/MY_KEYCLOAK
+
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://postgres:5432/control_image}
+    url: jdbc:postgresql://postgres:5432/control_image
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
     password: ${SPRING_DATASOURCE_PASSWORD:123ateo9}
     driver-class-name: org.postgresql.Driver
+
   flyway:
     enabled: true
     locations: classpath:db/migration
     baseline-on-migrate: true
-    default-schema: file
+    default-schema: ${SCHEMA_NAME:file}
     validate-on-migrate: true
 
   jpa:
     hibernate:
       ddl-auto: none
     show-sql: true
-
     properties:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
         default_schema: ${SCHEMA_NAME:file}
-  sql:
-    init:
-      mode: always
-      encoding: UTF-8
 
 server:
   port: 8082
+  address: 0.0.0.0
 
-upload:
-  dir: uploads
+storage:
+  s3:
+    endpoint: http://minio:9000
+    access-key: minioadmin
+    secret-key: minioadmin123ateo9
+    bucket: images
+    region: us-east-1
 
 keycloak-config:
   client-id: ANIMAL_ADOPTION_CLIENT
-  client-secret: rb308smILPAIuMrKYBqF9XrLwAPLd4Xm
+  client-secret: ${KEYCLOAK_CLIENT_SECRET}
 
-base-url: http://localhost:8082
+base-url: ${BASE_URL:http://image-api:8082}
