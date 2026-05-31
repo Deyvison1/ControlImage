@@ -9,6 +9,8 @@ import com.shareddtos.exception.NotFoundException;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.sync.RequestBody;
@@ -24,6 +26,9 @@ import java.util.UUID;
 public class ImageServiceImpl implements IImageService {
 
 	private static final String BUCKET = "images";
+
+	@Value("${storage.s3.public-url}")
+	private String publicUrl;
 
 	private final IImageRepository repository;
 	private final IImageMapper mapper;
@@ -86,7 +91,7 @@ public class ImageServiceImpl implements IImageService {
 
 		Image image = findById(id);
 
-		return s3Client.utilities().getUrl(b -> b.bucket(image.getBucket()).key(image.getObjectKey())).toExternalForm();
+		return String.format("%s/%s/%s", publicUrl, image.getBucket(), image.getObjectKey());
 	}
 
 	@Override
