@@ -46,6 +46,6 @@ storage:
     region: us-east-1
 
 keycloak-config:
-  client-id: ANIMAL_ADOPTION_CLIENT
+  client-id: image-api-client
   client-secret: ${KEYCLOAK_CLIENT_SECRET}
 base-url: ${BASE_URL:http://192.168.18.7:8082}
