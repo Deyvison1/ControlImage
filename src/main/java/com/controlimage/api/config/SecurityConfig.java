@@ -59,11 +59,10 @@ public class SecurityConfig {
 			JwtAuthenticationConverter jwtAuthenticationConverter) throws Exception {
 
 		http.csrf(AbstractHttpConfigurer::disable).cors(cors -> cors.configurationSource(corsConfigurationSource))
-				.authorizeHttpRequests(auth -> auth.requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**")
-						.permitAll()
+				.authorizeHttpRequests(auth -> auth.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 						.requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**",
 								"/swagger-resources/**", "/webjars/**", "/images/**")
-						.permitAll().requestMatchers(HttpMethod.GET, "/api/image/{id}/url").permitAll().requestMatchers(HttpMethod.GET, "/api/image/{id}").permitAll().anyRequest()
+						.permitAll().requestMatchers(HttpMethod.GET, "/api/image/**").permitAll().anyRequest()
 						.authenticated())
 				.oauth2ResourceServer(
 						oauth -> oauth.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter)));
