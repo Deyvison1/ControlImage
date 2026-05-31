@@ -41,7 +41,7 @@ services:
       # =========================
       # BASE URL da própria API
       # =========================
-      BASE_URL: http://image-api:8082
+      BASE_URL: http://192.168.18.7:8082
 
     networks:
       - my-infra-docker

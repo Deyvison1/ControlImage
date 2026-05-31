@@ -49,4 +49,4 @@ keycloak-config:
   client-id: image-api-client
   client-secret: BiH0JlihMhiBXZrV6WGo6bG702XVdG9U
 
-base-url: ${BASE_URL:http://image-api:8082}
+base-url: ${BASE_URL:http://192.168.18.7:8082}
