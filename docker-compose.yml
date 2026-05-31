@@ -22,7 +22,7 @@ services:
       # =========================
       # KEYCLOAK (serviço externo)
       # =========================
-      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://keycloak:8080/realms/MY_KEYCLOAK
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://192.168.18.7:8080/realms/MY_KEYCLOAK
 
       # =========================
       # SCHEMA
