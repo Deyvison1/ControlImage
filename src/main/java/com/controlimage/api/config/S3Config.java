@@ -19,20 +19,24 @@ public class S3Config {
 	private final S3Properties properties;
 
 	@Bean
-	public S3Client s3Client() {
+	S3Client s3Client() {
 		return S3Client.builder().endpointOverride(URI.create(properties.getEndpoint()))
 				.region(Region.of(properties.getRegion()))
 				.credentialsProvider(StaticCredentialsProvider
 						.create(AwsBasicCredentials.create(properties.getAccessKey(), properties.getSecretKey())))
+				.serviceConfiguration(software.amazon.awssdk.services.s3.S3Configuration.builder()
+						.pathStyleAccessEnabled(true).build())
 				.build();
 	}
 
 	@Bean
-	public S3Presigner s3Presigner() {
+	S3Presigner s3Presigner() {
 		return S3Presigner.builder().endpointOverride(URI.create(properties.getEndpoint()))
 				.region(Region.of(properties.getRegion()))
 				.credentialsProvider(StaticCredentialsProvider
 						.create(AwsBasicCredentials.create(properties.getAccessKey(), properties.getSecretKey())))
+				.serviceConfiguration(software.amazon.awssdk.services.s3.S3Configuration.builder()
+						.pathStyleAccessEnabled(true).build())
 				.build();
 	}
 }
