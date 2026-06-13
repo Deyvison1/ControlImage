@@ -3,6 +3,8 @@ package com.controlimage.api.controller;
 import com.controlimage.api.dto.ImageDTO;
 import com.controlimage.api.dto.constants.ImageConstants;
 import com.controlimage.api.service.IImageService;
+import com.controlimage.api.service.impl.ImageServiceImpl;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -10,6 +12,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @RestController
 @RequestMapping(ImageConstants.BASE_PATH)
 @RequiredArgsConstructor
@@ -41,6 +46,7 @@ public class ImageController {
 			@Parameter(description = "Arquivo da imagem", required = true) @RequestPart("file") MultipartFile file,
 
 			@RequestParam(defaultValue = "true") Boolean active) {
+		log.info("chegou");
 		ImageDTO saved = service.add(file, active);
 		return ResponseEntity.status(HttpStatus.CREATED).body(saved);
 	}

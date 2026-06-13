@@ -20,7 +20,9 @@ import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.util.List;
 import java.util.UUID;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ImageServiceImpl implements IImageService {
@@ -37,7 +39,9 @@ public class ImageServiceImpl implements IImageService {
 	@Override
 	@Transactional
 	public ImageDTO add(MultipartFile file, Boolean active) {
-
+		log.info("file name: {}", file.getOriginalFilename());
+		log.info("file size: {}", file.getSize());
+		log.info("empty: {}", file.isEmpty());
 		boolean isActive = active == null || active;
 
 		String fileKey = generateFileKey(file.getOriginalFilename());
@@ -58,6 +62,9 @@ public class ImageServiceImpl implements IImageService {
 			return dto;
 
 		} catch (Exception e) {
+			log.info("file size: {}", file.getSize());
+			log.info("empty: {}", file.isEmpty());
+			log.info("message: {}", e.getMessage());
 			throw new RuntimeException("Erro ao fazer upload da imagem", e);
 		}
 	}
