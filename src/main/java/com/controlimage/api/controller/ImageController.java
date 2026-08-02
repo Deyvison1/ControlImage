@@ -46,7 +46,6 @@ public class ImageController {
 			@Parameter(description = "Arquivo da imagem", required = true) @RequestPart("file") MultipartFile file,
 
 			@RequestParam(defaultValue = "true") Boolean active) {
-		log.info("chegou");
 		ImageDTO saved = service.add(file, active);
 		return ResponseEntity.status(HttpStatus.CREATED).body(saved);
 	}

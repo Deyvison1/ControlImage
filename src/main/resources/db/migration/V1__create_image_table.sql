@@ -12,8 +12,10 @@ CREATE TABLE IF NOT EXISTS file.image (
     update_date timestamp(6),
     creation_user varchar(255) NOT NULL,
     update_user varchar(255),
+    image_hash varchar(64) NOT NULL,
 
-    CONSTRAINT image_pkey PRIMARY KEY (id)
+    CONSTRAINT image_pkey PRIMARY KEY (id),
+    CONSTRAINT uk_image_hash UNIQUE (image_hash)
 );
 
 -- Permissions

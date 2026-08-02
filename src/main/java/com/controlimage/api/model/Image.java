@@ -37,6 +37,9 @@ public class Image extends BaseEntity {
 	private String contentType;
 
 	private Long size;
+	
+	@Column(nullable = false, unique = true, name = "image_hash")
+	private String imageHash;
 
 	@Column(nullable = false)
 	@Builder.Default

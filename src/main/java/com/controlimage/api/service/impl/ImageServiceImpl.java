@@ -10,6 +10,7 @@ import com.shareddtos.exception.NotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,6 +20,7 @@ import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 
@@ -39,32 +41,38 @@ public class ImageServiceImpl implements IImageService {
 	@Override
 	@Transactional
 	public ImageDTO add(MultipartFile file, Boolean active) {
-		log.info("file name: {}", file.getOriginalFilename());
-		log.info("file size: {}", file.getSize());
-		log.info("empty: {}", file.isEmpty());
 		boolean isActive = active == null || active;
 
-		String fileKey = generateFileKey(file.getOriginalFilename());
-
 		try {
-			// 1. upload S3 primeiro (garante que arquivo existe)
+			String hash = DigestUtils.sha256Hex(file.getBytes());
+
+			Optional<Image> existing = repository.findByHash(hash);
+
+			if (existing.isPresent()) {
+				Image image = existing.get();
+
+				ImageDTO dto = mapper.toDto(image);
+				dto.setUrl(getImageUrl(image.getId()));
+				return dto;
+			}
+
+			String fileKey = generateFileKey(hash + "-" + file.getOriginalFilename());
+
 			s3Client.putObject(
 					PutObjectRequest.builder().bucket(BUCKET).key(fileKey).contentType(file.getContentType()).build(),
 					RequestBody.fromBytes(file.getBytes()));
 
-			// 2. salva metadata no banco
 			Image entity = Image.builder().filename(file.getOriginalFilename()).objectKey(fileKey).bucket(BUCKET)
-					.contentType(file.getContentType()).size(file.getSize()).active(isActive).build();
+					.contentType(file.getContentType()).size(file.getSize()).active(isActive).imageHash(hash).build();
 
 			Image entitySaved = repository.save(entity);
-			ImageDTO dto = mapper.toDto(entity);
+
+			ImageDTO dto = mapper.toDto(entitySaved);
 			dto.setUrl(getImageUrl(entitySaved.getId()));
+
 			return dto;
 
 		} catch (Exception e) {
-			log.info("file size: {}", file.getSize());
-			log.info("empty: {}", file.isEmpty());
-			log.info("message: {}", e.getMessage());
 			throw new RuntimeException("Erro ao fazer upload da imagem", e);
 		}
 	}
@@ -76,10 +84,8 @@ public class ImageServiceImpl implements IImageService {
 		Image entity = findById(id);
 
 		try {
-			// 1. remove DB primeiro (fonte de verdade)
 			repository.delete(entity);
 
-			// 2. remove S3 (best effort)
 			s3Client.deleteObject(
 					DeleteObjectRequest.builder().bucket(entity.getBucket()).key(entity.getObjectKey()).build());
 
