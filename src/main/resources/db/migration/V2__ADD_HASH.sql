@@ -1,0 +1,1 @@
+ALTER TABLE file.image ADD COLUMN IF NOT EXISTS image_hash varchar(255);

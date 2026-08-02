@@ -46,7 +46,7 @@ public class ImageServiceImpl implements IImageService {
 		try {
 			String hash = DigestUtils.sha256Hex(file.getBytes());
 
-			Optional<Image> existing = repository.findByHash(hash);
+			Optional<Image> existing = repository.findByImageHash(hash);
 
 			if (existing.isPresent()) {
 				Image image = existing.get();

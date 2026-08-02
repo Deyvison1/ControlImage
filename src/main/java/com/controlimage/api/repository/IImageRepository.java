@@ -7,6 +7,5 @@ import java.util.UUID;
 
 public interface IImageRepository extends JpaRepository<Image, UUID> {
 	Optional<Image> findByFilename(String filename);
-    boolean existsByHash(String hash);
-    Optional<Image> findByHash(String hash);
+    Optional<Image> findByImageHash(String hash);
 }

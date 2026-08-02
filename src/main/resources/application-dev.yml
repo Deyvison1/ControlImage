@@ -8,10 +8,10 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://192.168.18.7:8080/realms/MY_KEYCLOAK
+          issuer-uri: http://localhost:8080/realms/MY_KEYCLOAK
 
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://192.168.18.7:5432/control_image}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/control_image}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
     password: ${SPRING_DATASOURCE_PASSWORD:123ateo9}
     driver-class-name: org.postgresql.Driver
@@ -39,7 +39,7 @@ server:
 
 storage:
   s3:
-    endpoint: http://192.168.18.7:9000   # 🔥 MinIO API (NUNCA 9001)
+    endpoint: http://localhost:9000   # 🔥 MinIO API (NUNCA 9001)
     access-key: minioadmin
     secret-key: minioadmin123ateo9
     bucket: images
@@ -49,4 +49,4 @@ storage:
 keycloak-config:
   client-id: image-api-client
   client-secret: ${KEYCLOAK_CLIENT_SECRET}
-base-url: ${BASE_URL:http://192.168.18.7:8082}
+base-url: ${BASE_URL:http://localhost:8082}
