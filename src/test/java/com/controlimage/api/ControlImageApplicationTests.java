@@ -8,6 +8,7 @@ class ControlImageApplicationTests {
 
 	@Test
 	void contextLoads() {
+		
 	}
 
 }
