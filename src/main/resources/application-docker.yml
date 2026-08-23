@@ -8,7 +8,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://192.168.18.7:8080/realms/MY_KEYCLOAK
+          issuer-uri: http://keycloak:8080/realms/MY_KEYCLOAK
 
   datasource:
     url: jdbc:postgresql://postgres:5432/control_image
