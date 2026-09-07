@@ -19,5 +19,5 @@ CREATE TABLE IF NOT EXISTS file.image (
 );
 
 -- Permissions
-ALTER TABLE file.image OWNER TO postgres;
-GRANT ALL ON TABLE file.image TO postgres;
+ALTER TABLE file.image OWNER TO desenv;
+GRANT ALL ON TABLE file.image TO desenv;

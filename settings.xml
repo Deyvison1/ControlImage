@@ -9,12 +9,12 @@
 <server>
 <id>nexus-snapshots</id>
 <username>admin</username>
-<password>Nexus123ateo99</password>
+<password>nexus123ateo9</password>
 </server>
 <server>
 <id>nexus-releases</id>
 <username>admin</username>
-<password>Nexus123ateo99</password>
+<password>nexus123ateo9</password>
 </server>
 </servers>
 <!--  =========================  -->
@@ -24,7 +24,7 @@
 <mirror>
 <id>nexus</id>
 <mirrorOf>*</mirrorOf>
-<url>http://192.168.18.7:8081/repository/maven-public/</url>
+<url>https://nexus.animal-adoption.com.br:8081/repository/maven-public/</url>
 </mirror>
 </mirrors>
 </settings>

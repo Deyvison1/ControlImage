@@ -12,7 +12,7 @@ spring:
 
   datasource:
     url: jdbc:postgresql://postgres:5432/control_image
-    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    username: ${SPRING_DATASOURCE_USERNAME:desenv}
     password: ${SPRING_DATASOURCE_PASSWORD:123ateo9}
     driver-class-name: org.postgresql.Driver
 
@@ -40,14 +40,14 @@ server:
 storage:
   s3:
     endpoint: http://minio:9000
-    access-key: minioadmin
-    secret-key: minioadmin123ateo9
+    access-key: admin
+    secret-key: minio123ateo9
     bucket: images
     region: us-east-1
-    public-url: http://192.168.18.7:9000
+    public-url: https://minio.animal-adoption.com.br:9000
 
 keycloak-config:
-  client-id: image-api-client
-  client-secret: BiH0JlihMhiBXZrV6WGo6bG702XVdG9U
+  client-id: IMAGE-API-CLIENT
+  client-secret: iYg8zNDBqOic8ip0RyKU5uiAyL1xo1Un
 
-base-url: ${BASE_URL:http://192.168.18.7:8082}
+base-url: ${BASE_URL:https://image-api.animal-adoption.com.br}

@@ -39,14 +39,14 @@ server:
 
 storage:
   s3:
-    endpoint: http://localhost:9000   # 🔥 MinIO API (NUNCA 9001)
-    access-key: minioadmin
-    secret-key: minioadmin123ateo9
+    endpoint: https://minio.animal-adoption.com.br
+    access-key: admin
+    secret-key: 123ateo9
     bucket: images
     region: us-east-1
-    public-url: http://192.168.18.7:9000
+    public-url: https://minio.animal-adoption.com.br
 
 keycloak-config:
-  client-id: image-api-client
+  client-id: IMAGE-API-CLIENT
   client-secret: ${KEYCLOAK_CLIENT_SECRET}
 base-url: ${BASE_URL:http://localhost:8082}
