@@ -23,7 +23,7 @@ services:
       # =========================
       # KEYCLOAK (serviço externo)
       # =========================
-      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: https://auth.animal-adoption.com.br:8080/realms/MY_KEYCLOAK
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: https://auth.animal-adoption.com.br/realms/MY_KEYCLOAK
 
       # =========================
       # SCHEMA
@@ -42,7 +42,7 @@ services:
       # =========================
       # BASE URL da própria API
       # =========================
-      BASE_URL: https://minio.animal-adoption.com.br:8082
+      BASE_URL: https://minio.animal-adoption.com.br
     extra_hosts:
       - "auth.animal-adoption.com.br:192.168.18.7"
     networks:

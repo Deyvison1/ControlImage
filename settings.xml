@@ -24,7 +24,7 @@
 <mirror>
 <id>nexus</id>
 <mirrorOf>*</mirrorOf>
-<url>https://nexus.animal-adoption.com.br:8081/repository/maven-public/</url>
+<url>https://nexus.animal-adoption.com.br/repository/maven-public/</url>
 </mirror>
 </mirrors>
 </settings>

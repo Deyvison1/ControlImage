@@ -44,7 +44,7 @@ storage:
     secret-key: minio123ateo9
     bucket: images
     region: us-east-1
-    public-url: https://minio.animal-adoption.com.br:9000
+    public-url: https://minio.animal-adoption.com.br
 
 keycloak-config:
   client-id: IMAGE-API-CLIENT
