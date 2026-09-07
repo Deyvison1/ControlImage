@@ -47,6 +47,15 @@ services:
       - "auth.animal-adoption.com.br:192.168.18.7"
     networks:
       - my-infra-docker
+    labels:
+      - "traefik.enable=true"
+
+      - "traefik.http.routers.api-animal-adoption.rule=Host(`image-api.animal-adoption.com.br`)"
+      - "traefik.http.routers.api-animal-adoption.entrypoints=websecure"
+      - "traefik.http.routers.api-animal-adoption.tls=true"
+      - "traefik.http.routers.api-animal-adoption.tls.certresolver=letsencrypt"
+
+      - "traefik.http.services.api-animal-adoption.loadbalancer.server.port=8083"
 
 networks:
   my-infra-docker:
