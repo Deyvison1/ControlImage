@@ -31,12 +31,22 @@ public class S3Config {
 
 	@Bean
 	S3Presigner s3Presigner() {
-		return S3Presigner.builder().endpointOverride(URI.create(properties.getEndpoint()))
+		return S3Presigner.builder()
+				.endpointOverride(URI.create(properties.getPublicUrl()))
 				.region(Region.of(properties.getRegion()))
-				.credentialsProvider(StaticCredentialsProvider
-						.create(AwsBasicCredentials.create(properties.getAccessKey(), properties.getSecretKey())))
-				.serviceConfiguration(software.amazon.awssdk.services.s3.S3Configuration.builder()
-						.pathStyleAccessEnabled(true).build())
+				.credentialsProvider(
+						StaticCredentialsProvider.create(
+								AwsBasicCredentials.create(
+										properties.getAccessKey(),
+										properties.getSecretKey()
+								)
+						)
+				)
+				.serviceConfiguration(
+						software.amazon.awssdk.services.s3.S3Configuration.builder()
+								.pathStyleAccessEnabled(true)
+								.build()
+				)
 				.build();
 	}
 }

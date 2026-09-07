@@ -35,9 +35,6 @@ public class ImageServiceImpl implements IImageService {
 
 	private static final String BUCKET = "images";
 
-	@Value("${storage.s3.public-url}")
-	private String publicUrl;
-
 	private final IImageRepository repository;
 	private final IImageMapper mapper;
 	private final S3Client s3Client;
